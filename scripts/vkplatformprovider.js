@@ -54,11 +54,16 @@ VKPlatformProvider.prototype.showInterstitial = function(ignoreDelay = false) {
         this._nextAdsAvailableTimer = new Timer(this.options.minDelayBetweenAds)
 }
 
-VKPlatformProvider.prototype.showRewarded = function() {
+VKPlatformProvider.prototype.showRewarded = function(id) {
     if (this.options.logsEnabled)
         console.log('VKPlatformProvider.showRewarded')
 
-    vkBridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' }).catch(error => console.log(error))
+    vkBridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' }).then(function(data) {
+		console.log(data.result);
+		onComplete(id);
+	}
+		) 
+	.catch(error => console.log(error))
 }
 
 VKPlatformProvider.prototype.vibrate = function() {

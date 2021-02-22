@@ -3309,18 +3309,7 @@ function FinishLevel(l){
 
       function showFullscrenAd(){
 		console.log('showFullscreenAdv');
-        /*if(window.sdk!=undefined){
-            window.sdk.adv.showFullscreenAdv({
-            callbacks: {
-                onClose: function(wasShown) {
-                    ct.room.OnInterstitialShown();              
-                },
-                onError: function(error) {
-                    ct.room.OnInterstitialFailed();              
-                }
-            }
-            })
-        }*/
+        
         if(window.adsProvider!=undefined && window.platformProvider!=undefined){
             if(PIXI.utils.isMobile.any){
                 window.platformProvider.showInterstitial();
@@ -3330,10 +3319,22 @@ function FinishLevel(l){
             
         }
       }
-
+        function onComplete(reward){
+            console.log("reward",reward);
+            ct.room.OnRewarded(reward);
+        }
       function showRewardedAd(id){
          //ct.room.OnRewarded(id);
-         if(window.sdk!=undefined){
+          console.log("show",id);
+         if(window.adsProvider!=undefined && window.platformProvider!=undefined){
+            if(PIXI.utils.isMobile.any){
+                window.platformProvider.showRewarded(id);
+            }else{
+                window.adsProvider.ShowReward(window.platformProvider.getUserId(),id);
+            }
+            
+        }
+         /*if(window.sdk!=undefined){
             window.sdk.adv.showRewardedVideo({
             callbacks: {
                 onOpen: () => {
@@ -3352,7 +3353,7 @@ function FinishLevel(l){
                 }
             }
             })
-         } 
+         } */
       }
 ;
     function auth(){
@@ -3409,8 +3410,8 @@ function GetStorage(){
 var S=75;;
 function AddToFavorites(){
     platformProvider.addToFavorites();   
-     console.log(PIXI.utils.isMobile.any);
-     showFullscrenAd();
+     //console.log(PIXI.utils.isMobile.any);
+     //showFullscrenAd();
 }
 
 function Invite(){
@@ -3861,7 +3862,7 @@ ct.rooms.templates['game'] = {
     onCreate() {
         this.pause=false;
 this.levelsfinished=0;
-console.log("v0.2b3");
+console.log("v0.2b4");
 //GetStorage().clear();
 GetCoins();
 //AddCoins(1500);
@@ -3874,8 +3875,8 @@ if('level' in GetStorage()){
 /*for(var i=1;i<=100;i++){
     GetLevel(i);
 }*/
-showFullscrenAd();
-var start = Date.now();
+//showFullscrenAd();
+var start = 0;
 this.ShowMainMenu=function(){
     this.gameUI=ct.rooms.append('mainmenu', {
                 isUi: true
@@ -3965,13 +3966,13 @@ this.NextLevel=function(){
         start = Date.now();
     }
     
-    if(this.levelsfinished>3){
+    /*if(this.levelsfinished>3){
         if(this.levelsfinished%3==0){
             LoadBaner();
         }else{
             //showFullscrenAd();
         }
-    }    
+    }  */  
 }
 
 this.OnInterstitialShown=function(){
