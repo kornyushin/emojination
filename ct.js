@@ -3309,7 +3309,7 @@ function FinishLevel(l){
 
       function showFullscrenAd(){
 		console.log('showFullscreenAdv');
-        if(window.sdk!=undefined){
+        /*if(window.sdk!=undefined){
             window.sdk.adv.showFullscreenAdv({
             callbacks: {
                 onClose: function(wasShown) {
@@ -3320,6 +3320,14 @@ function FinishLevel(l){
                 }
             }
             })
+        }*/
+        if(window.adsProvider!=undefined && window.platformProvider!=undefined){
+            if(PIXI.utils.isMobile.any){
+                window.platformProvider.showInterstitial();
+            }else{
+                window.adsProvider.ShowInterstitial(window.platformProvider.getUserId());
+            }
+            
         }
       }
 
@@ -3400,8 +3408,8 @@ function GetStorage(){
 /* Use scripts to define frequent functions and import small libraries */
 var S=75;;
 function AddToFavorites(){
-    platformProvider.addToFavorites();
-    Post(1);
+    platformProvider.addToFavorites();   
+     console.log(PIXI.utils.isMobile.any);
 }
 
 function Invite(){
@@ -3418,17 +3426,6 @@ function JoinGroup(){
 }
 
 ;
-function ShowInterstitial(){
-
-}
-
-function ShowReward(){
-
-}
-
-function ShowBanner(){
-    
-};
 /**
  * @typedef IRoomMergeResult
  *
@@ -3787,7 +3784,8 @@ if (!this.kill) {
 ct.room = null;
 
 ct.rooms.beforeStep = function beforeStep() {
-    var i = 0;
+    ct.touch.updateGestures();
+var i = 0;
 while (i < ct.tween.tweens.length) {
     var tween = ct.tween.tweens[i];
     if (tween.obj.kill) {
@@ -3814,7 +3812,6 @@ while (i < ct.tween.tweens.length) {
     }
     i++;
 }
-ct.touch.updateGestures();
 
 };
 ct.rooms.afterStep = function afterStep() {
@@ -3830,7 +3827,6 @@ ct.mouse.xuiprev = ct.mouse.xui;
 ct.mouse.yuiprev = ct.mouse.yui;
 ct.mouse.pressed = ct.mouse.released = false;
 ct.inputs.registry['mouse.Wheel'] = 0;
-ct.keyboard.clear();
 for (const touch of ct.touch.events) {
     touch.xprev = touch.x;
     touch.yprev = touch.y;
@@ -3838,6 +3834,7 @@ for (const touch of ct.touch.events) {
     touch.yuiprev = touch.y;
     ct.touch.clearReleased();
 }
+ct.keyboard.clear();
 
 };
 
@@ -3863,7 +3860,7 @@ ct.rooms.templates['game'] = {
     onCreate() {
         this.pause=false;
 this.levelsfinished=0;
-console.log("v0.2b1");
+console.log("v0.2b2");
 //GetStorage().clear();
 GetCoins();
 //AddCoins(1500);
@@ -3876,7 +3873,8 @@ if('level' in GetStorage()){
 /*for(var i=1;i<=100;i++){
     GetLevel(i);
 }*/
-
+showFullscrenAd();
+var start = Date.now();
 this.ShowMainMenu=function(){
     this.gameUI=ct.rooms.append('mainmenu', {
                 isUi: true
@@ -3959,11 +3957,18 @@ this.NextLevel=function(){
         Post(GetStorage().level);
     }
     //this.StartGame();
+    var sec = Math.floor((Date.now() - start) / 1000);
+    console.log("seconds elapsed = ",sec);
+    if(sec>=30){
+        showFullscrenAd();
+        start = Date.now();
+    }
+    
     if(this.levelsfinished>3){
         if(this.levelsfinished%3==0){
             LoadBaner();
         }else{
-            showFullscrenAd();
+            //showFullscrenAd();
         }
     }    
 }
@@ -7925,6 +7930,8 @@ if('post' in GetStorage()){
     this.post = GetStorage().post=="true";
 }else{
     this.post=true;
+    GetStorage().post = this.post;
+
 }
 
 this.check.visible=this.post;

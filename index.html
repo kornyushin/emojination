@@ -4,8 +4,7 @@ window.addEventListener('load', function() {
 	window.platformProvider = new VKPlatformProvider(PLATFORM_OPTIONS)
 	platformProvider.initialize().then(() => {
 		console.log('onPlatformProviderInitialized');
-                
-				window.adsProvider = new AdsProvider();
-				adsProvider.ShowInterstitial(platformProvider.getUserId());
+                window.adsProvider = new AdsProvider();
+	       
 	}) 
 });</script><div id="ct"><div class="ct-aLoadingScreen"><div class="ct-aLoadingProgress" data-progress="0"><span>ЗАГРУЗКА…</span><div style="width: 0%;" class="ct-aLoadingBar"></div></div></div></div><script src="pixi.min.js"></script><script src="pixi-particles.min.js"></script><script async src="ct.js"></script></body></html>
