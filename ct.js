@@ -3410,6 +3410,7 @@ var S=75;;
 function AddToFavorites(){
     platformProvider.addToFavorites();   
      console.log(PIXI.utils.isMobile.any);
+     showFullscrenAd();
 }
 
 function Invite(){
@@ -3827,6 +3828,7 @@ ct.mouse.xuiprev = ct.mouse.xui;
 ct.mouse.yuiprev = ct.mouse.yui;
 ct.mouse.pressed = ct.mouse.released = false;
 ct.inputs.registry['mouse.Wheel'] = 0;
+ct.keyboard.clear();
 for (const touch of ct.touch.events) {
     touch.xprev = touch.x;
     touch.yprev = touch.y;
@@ -3834,7 +3836,6 @@ for (const touch of ct.touch.events) {
     touch.yuiprev = touch.y;
     ct.touch.clearReleased();
 }
-ct.keyboard.clear();
 
 };
 
@@ -3860,7 +3861,7 @@ ct.rooms.templates['game'] = {
     onCreate() {
         this.pause=false;
 this.levelsfinished=0;
-console.log("v0.2b2");
+console.log("v0.2b3");
 //GetStorage().clear();
 GetCoins();
 //AddCoins(1500);
