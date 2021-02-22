@@ -94,3 +94,19 @@ VKPlatformProvider.prototype.showLeaderboard = function(userResult) {
 
     vkBridge.send('VKWebAppShowLeaderBoardBox', { 'user_result': userResult })
 }
+
+VKPlatformProvider.prototype.joinToGroup = function(group) {
+    if (this.options.logsEnabled)
+        console.log('VKPlatformProvider.joinToGroup '+group)
+
+    vkBridge.send("VKWebAppJoinGroup", {"group_id": group});
+}
+
+VKPlatformProvider.prototype.inviteFriends = function() {
+    if (this.options.logsEnabled)
+        console.log('VKPlatformProvider.inviteFriends')
+
+    vkBridge.send("VKWebAppShowInviteBox", {})
+         .then(data => console.log(data.success))
+        .catch(error => console.log(error));
+}
