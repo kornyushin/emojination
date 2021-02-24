@@ -3862,7 +3862,7 @@ ct.rooms.templates['game'] = {
     onCreate() {
         this.pause=false;
 this.levelsfinished=0;
-console.log("v0.2b4");
+console.log("v0.2b5");
 //GetStorage().clear();
 GetCoins();
 //AddCoins(1500);
@@ -3887,7 +3887,7 @@ this.gameUI=ct.rooms.append('gameUI', {
     });
 this.StartGame=function(){
     ct.room.pause=false;  
-    console.log("start level "+this.level);
+   
     this.gameUI.UpdateLevel();
     this.levelParams=GetLevel(this.level);  
     //this.game=ct.types.copy("maingame3x3");
@@ -3924,7 +3924,7 @@ this.HandleWin=function(){
         this.levelsfinished++;
         //FinishLevel(this.level);
         this.level++;
-        console.log(this.level);
+       
         GetStorage().level=this.level;
         
          /*if(this.level%3==0){
@@ -3960,8 +3960,8 @@ this.NextLevel=function(){
     }
     //this.StartGame();
     var sec = Math.floor((Date.now() - start) / 1000);
-    console.log("seconds elapsed = ",sec);
-    if(sec>=30){
+   
+    if(sec>=90){
         showFullscrenAd();
         start = Date.now();
     }
@@ -3976,16 +3976,16 @@ this.NextLevel=function(){
 }
 
 this.OnInterstitialShown=function(){
-    console.log("OnInterstitialShown");
+   
 }
 this.OnInterstitialFailed=function(){
-    console.log("OnInterstitialFailed");
+   
 }
 this.OnRewardedOpen=function(id){
-    console.log('Video ad open. Id: ' + id);
+   
 };
 this.OnRewarded=function(id){
-    //console.log('Rewarded! Id: ' + id);
+   
     if(id==2){
         //reward for skip
         //this.FakeSort();
@@ -4001,10 +4001,10 @@ this.OnRewarded=function(id){
     }
 };
 this.OnRewardedClose=function(id){
-    console.log('Video ad closed. Id: ' + id);
+   
 };
 this.OnRewardedError=function(id){
-    console.log('Error while open video ad:', id)
+  
 };
     },
     extends: {}
@@ -5692,7 +5692,8 @@ PIXI.Loader.shared
 
         loadingScreen.classList.add('hidden');
         setTimeout(() => {
-            Object.defineProperty(ct.types.Copy.prototype, 'ctype', {
+            ct.mouse.setupListeners();
+Object.defineProperty(ct.types.Copy.prototype, 'ctype', {
     set: function (value) {
         this.$ctype = value;
     },
@@ -5731,7 +5732,6 @@ Object.defineProperty(ct.types.Tilemap.prototype, 'enableCollisions', {
         ct.place.enableTilemapCollisions(this, ctype);
     }
 });
-ct.mouse.setupListeners();
 ct.touch.setupListeners();
 if ([true][0]) {
     ct.touch.setupMouseListeners();
@@ -7798,16 +7798,19 @@ ct.types.templates["LevelUp"] = {
 }else{
     this.levelProgress=0;
 }
+
 if('levelPercent' in GetStorage()){
     this.levelPercent = Number(GetStorage().levelPercent);
 }else{
     this.levelPercent=0;
 }
 this.levelPercent+=10;
-
+this.levelProgress=7;
+this.levelPercent=100;
 this.OnFinishScale=function(){
     if(this.levelPercent==100){
         this.levelProgress++;
+        this.levelProgress = Math.min(this.levelProgress, 7); 
         this.levelPercent=0;
         this.percentlabel.text="0%";
         this.label.text=names[this.levelProgress];
