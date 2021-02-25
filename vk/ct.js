@@ -3786,8 +3786,7 @@ if (!this.kill) {
 ct.room = null;
 
 ct.rooms.beforeStep = function beforeStep() {
-    ct.touch.updateGestures();
-var i = 0;
+    var i = 0;
 while (i < ct.tween.tweens.length) {
     var tween = ct.tween.tweens[i];
     if (tween.obj.kill) {
@@ -3814,6 +3813,7 @@ while (i < ct.tween.tweens.length) {
     }
     i++;
 }
+ct.touch.updateGestures();
 
 };
 ct.rooms.afterStep = function afterStep() {
@@ -5692,8 +5692,7 @@ PIXI.Loader.shared
 
         loadingScreen.classList.add('hidden');
         setTimeout(() => {
-            ct.mouse.setupListeners();
-Object.defineProperty(ct.types.Copy.prototype, 'ctype', {
+            Object.defineProperty(ct.types.Copy.prototype, 'ctype', {
     set: function (value) {
         this.$ctype = value;
     },
@@ -5732,6 +5731,7 @@ Object.defineProperty(ct.types.Tilemap.prototype, 'enableCollisions', {
         ct.place.enableTilemapCollisions(this, ctype);
     }
 });
+ct.mouse.setupListeners();
 ct.touch.setupListeners();
 if ([true][0]) {
     ct.touch.setupMouseListeners();
@@ -7805,8 +7805,7 @@ if('levelPercent' in GetStorage()){
     this.levelPercent=0;
 }
 this.levelPercent+=10;
-this.levelProgress=7;
-this.levelPercent=100;
+
 this.OnFinishScale=function(){
     if(this.levelPercent==100){
         this.levelProgress++;
