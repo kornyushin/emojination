@@ -16,7 +16,7 @@ FAPI.init(rParams["api_server"], rParams["apiconnection"],
               //initCard();
               currentUserId = FAPI.Util.getRequestParameters()["logged_user_id"];
 			  FAPI.UI.loadAd();
-			  FAPI.UI.showAd();
+			  //FAPI.UI.showAd();
           },
           /*
           * Второй параметр:
