@@ -3310,14 +3310,7 @@ function FinishLevel(l){
       function showFullscrenAd(){
 		console.log('showFullscreenAdv');
         FAPI.UI.showAd();
-       /* if(window.adsProvider!=undefined && window.platformProvider!=undefined){
-            if(PIXI.utils.isMobile.any){
-                window.platformProvider.showInterstitial();
-            }else{
-                window.adsProvider.ShowInterstitial(window.platformProvider.getUserId());
-            }
-            
-        }*/
+     
       }
         function onComplete(reward){
             console.log("reward",reward);
@@ -3327,14 +3320,7 @@ function FinishLevel(l){
          //ct.room.OnRewarded(id);
           console.log("show",id);
           FAPI.UI.showLoadedAd();
-         /*if(window.adsProvider!=undefined && window.platformProvider!=undefined){
-            if(PIXI.utils.isMobile.any){
-                window.platformProvider.showRewarded(id);
-            }else{
-                window.adsProvider.ShowReward(window.platformProvider.getUserId(),id);
-            }
-            
-        }*/
+         
         
       }
 ;
@@ -3418,12 +3404,13 @@ function Post(lvl){
     },
     false
 );
-   // platformProvider.share({message:"Дошел до "+lvl+" уровня в Эмоджинации!",link:"https://vk.com/app7766386"});
+   
 }
 
 function JoinGroup(){
    //platformProvider.joinToGroup("202724106");
-   FAPI.UI.navigateTo("https://ok.ru/group/59514986496079");
+   //FAPI.UI.navigateTo("https://ok.ru/group/59514986496079");
+   window.open("https://ok.ru/group/59514986496079", '_blank');
 }
 
 ;
@@ -3828,6 +3815,7 @@ ct.mouse.xuiprev = ct.mouse.xui;
 ct.mouse.yuiprev = ct.mouse.yui;
 ct.mouse.pressed = ct.mouse.released = false;
 ct.inputs.registry['mouse.Wheel'] = 0;
+ct.keyboard.clear();
 for (const touch of ct.touch.events) {
     touch.xprev = touch.x;
     touch.yprev = touch.y;
@@ -3835,7 +3823,6 @@ for (const touch of ct.touch.events) {
     touch.yuiprev = touch.y;
     ct.touch.clearReleased();
 }
-ct.keyboard.clear();
 
 };
 
@@ -4121,16 +4108,17 @@ if(this.skipBtn!=undefined){
     },
     onCreate() {
         var s=.6;
-this.inviteBtn = ct.types.copy('btnInvite',270,1200);
+this.inviteBtn = ct.types.copy('btnInvite',370,1200);
 this.inviteBtn.scale.x=this.inviteBtn.scale.y=s;
 //this.favoritesBtn = ct.types.copy('btnFavorites',350,1200);
 //this.favoritesBtn.scale.x=this.favoritesBtn.scale.y=s;
-this.groupBtn = ct.types.copy('btnGroup',430,1200);
-this.groupBtn.scale.x=this.groupBtn.scale.y=s;
-this.groupBtn.interactive=this.inviteBtn.interactive=true;
+//this.groupBtn = ct.types.copy('btnGroup',430,1200);
+//this.groupBtn.scale.x=this.groupBtn.scale.y=s;
+//this.groupBtn.interactive=
+this.inviteBtn.interactive=true;
 this.inviteBtn.on('pointerdown', Invite);
 //this.favoritesBtn.on('pointerdown', AddToFavorites);
-this.groupBtn.on('pointerdown', JoinGroup);
+//this.groupBtn.on('pointerdown', JoinGroup);
 
 this.skipBtn = ct.types.copy('btnSkip',890,70);
 this.skipBtn.visible=false;
@@ -7804,8 +7792,7 @@ if('levelPercent' in GetStorage()){
     this.levelPercent=0;
 }
 this.levelPercent+=10;
-this.levelProgress=7;
-this.levelPercent=100;
+
 this.OnFinishScale=function(){
     if(this.levelPercent==100){
         this.levelProgress++;
