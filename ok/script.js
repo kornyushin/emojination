@@ -38,7 +38,7 @@ function API_callback(method, result, data) {
     console.log("Method "+method+" finished with result "+result);
 	console.log(data);
      if (method == "showLoadedAd" && result == "ok") { 
-         onComplete(1);
+         onComplete(2);
      }
 }
 
