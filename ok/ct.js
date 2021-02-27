@@ -3317,6 +3317,8 @@ function FinishLevel(l){
             ct.room.OnRewarded(reward);
         }
        function onAdFinished(){ 
+           console.log("onAdFinished");
+           ct.room.activeIcon.connectedTo = null;
            ct.room.activeIcon=null;
            ct.room.pause = false;
        }
@@ -3820,7 +3822,6 @@ ct.mouse.xuiprev = ct.mouse.xui;
 ct.mouse.yuiprev = ct.mouse.yui;
 ct.mouse.pressed = ct.mouse.released = false;
 ct.inputs.registry['mouse.Wheel'] = 0;
-ct.keyboard.clear();
 for (const touch of ct.touch.events) {
     touch.xprev = touch.x;
     touch.yprev = touch.y;
@@ -3828,6 +3829,7 @@ for (const touch of ct.touch.events) {
     touch.yuiprev = touch.y;
     ct.touch.clearReleased();
 }
+ct.keyboard.clear();
 
 };
 
