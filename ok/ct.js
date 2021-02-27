@@ -3319,7 +3319,8 @@ function FinishLevel(l){
        function onAdFinished(){ 
            console.log("onAdFinished");
            if(ct.room.activeIcon!=undefined){
-                ct.room.activeIcon.connectedTo = null;
+                ct.room.activeIcon.selected = false;
+                ct.room.activeIcon.SetUnSelected();
            }
            ct.room.activeIcon=null;
            ct.room.pause = false;
