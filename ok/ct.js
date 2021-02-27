@@ -3395,11 +3395,12 @@ function Post(lvl){
             {
                 "type": "text",
                 "text": "Дошел до "+lvl+" уровня в Эмоджинации!"
-            },
+            }
+            /*,
             {
                 "type": "link",
                 "url": "https://ok.ru/game/512000524479"
-            }
+            }*/
         ]
     },
     false
@@ -3772,7 +3773,8 @@ if (!this.kill) {
 ct.room = null;
 
 ct.rooms.beforeStep = function beforeStep() {
-    var i = 0;
+    ct.touch.updateGestures();
+var i = 0;
 while (i < ct.tween.tweens.length) {
     var tween = ct.tween.tweens[i];
     if (tween.obj.kill) {
@@ -3799,7 +3801,6 @@ while (i < ct.tween.tweens.length) {
     }
     i++;
 }
-ct.touch.updateGestures();
 
 };
 ct.rooms.afterStep = function afterStep() {
@@ -3809,13 +3810,13 @@ ct.rooms.beforeDraw = function beforeDraw() {
     
 };
 ct.rooms.afterDraw = function afterDraw() {
-    ct.mouse.xprev = ct.mouse.x;
+    ct.keyboard.clear();
+ct.mouse.xprev = ct.mouse.x;
 ct.mouse.yprev = ct.mouse.y;
 ct.mouse.xuiprev = ct.mouse.xui;
 ct.mouse.yuiprev = ct.mouse.yui;
 ct.mouse.pressed = ct.mouse.released = false;
 ct.inputs.registry['mouse.Wheel'] = 0;
-ct.keyboard.clear();
 for (const touch of ct.touch.events) {
     touch.xprev = touch.x;
     touch.yprev = touch.y;
