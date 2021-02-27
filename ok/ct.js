@@ -3318,7 +3318,9 @@ function FinishLevel(l){
         }
        function onAdFinished(){ 
            console.log("onAdFinished");
-           ct.room.activeIcon.connectedTo = null;
+           if(ct.room.activeIcon!=undefined){
+                ct.room.activeIcon.connectedTo = null;
+           }
            ct.room.activeIcon=null;
            ct.room.pause = false;
        }
@@ -3779,8 +3781,7 @@ if (!this.kill) {
 ct.room = null;
 
 ct.rooms.beforeStep = function beforeStep() {
-    ct.touch.updateGestures();
-var i = 0;
+    var i = 0;
 while (i < ct.tween.tweens.length) {
     var tween = ct.tween.tweens[i];
     if (tween.obj.kill) {
@@ -3807,6 +3808,7 @@ while (i < ct.tween.tweens.length) {
     }
     i++;
 }
+ct.touch.updateGestures();
 
 };
 ct.rooms.afterStep = function afterStep() {
@@ -3822,6 +3824,7 @@ ct.mouse.xuiprev = ct.mouse.xui;
 ct.mouse.yuiprev = ct.mouse.yui;
 ct.mouse.pressed = ct.mouse.released = false;
 ct.inputs.registry['mouse.Wheel'] = 0;
+ct.keyboard.clear();
 for (const touch of ct.touch.events) {
     touch.xprev = touch.x;
     touch.yprev = touch.y;
@@ -3829,7 +3832,6 @@ for (const touch of ct.touch.events) {
     touch.yuiprev = touch.y;
     ct.touch.clearReleased();
 }
-ct.keyboard.clear();
 
 };
 
