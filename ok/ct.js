@@ -3316,6 +3316,10 @@ function FinishLevel(l){
             console.log("reward",reward);
             ct.room.OnRewarded(reward);
         }
+       function onAdFinished(){ 
+           ct.room.activeIcon=null;
+           ct.room.pause = false;
+       }
       function showRewardedAd(id){
          //ct.room.OnRewarded(id);
           console.log("show",id);
@@ -3810,13 +3814,13 @@ ct.rooms.beforeDraw = function beforeDraw() {
     
 };
 ct.rooms.afterDraw = function afterDraw() {
-    ct.keyboard.clear();
-ct.mouse.xprev = ct.mouse.x;
+    ct.mouse.xprev = ct.mouse.x;
 ct.mouse.yprev = ct.mouse.y;
 ct.mouse.xuiprev = ct.mouse.xui;
 ct.mouse.yuiprev = ct.mouse.yui;
 ct.mouse.pressed = ct.mouse.released = false;
 ct.inputs.registry['mouse.Wheel'] = 0;
+ct.keyboard.clear();
 for (const touch of ct.touch.events) {
     touch.xprev = touch.x;
     touch.yprev = touch.y;
@@ -3849,7 +3853,7 @@ ct.rooms.templates['game'] = {
     onCreate() {
         this.pause=false;
 this.levelsfinished=0;
-console.log("v0.2b5");
+console.log("v0.2b6");
 //GetStorage().clear();
 GetCoins();
 //AddCoins(1500);

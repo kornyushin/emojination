@@ -40,6 +40,9 @@ function API_callback(method, result, data) {
      if (method == "showLoadedAd" && result == "ok") { 
          onComplete(2);
      }
+	 if (method == "showAd" && result == "ok" && data == "ad_shown") { 
+         onAdFinished();
+     }
 }
 
 /*
