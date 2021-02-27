@@ -3318,6 +3318,7 @@ function FinishLevel(l){
         }
        function onAdFinished(){ 
            console.log("onAdFinished");
+           ct.touch.events=[];
            if(ct.room.activeIcon!=undefined){
                 ct.room.activeIcon.selected = false;
                 ct.room.activeIcon.SetUnSelected();
@@ -3394,7 +3395,9 @@ function AddToFavorites(){
 function Invite(){
     console.log("invite");
     //platformProvider.inviteFriends();
+    
     FAPI.UI.showInvite("Хочешь сыграть в Эмоджинацию?");
+    
 }
 
 function Post(lvl){
@@ -3782,7 +3785,8 @@ if (!this.kill) {
 ct.room = null;
 
 ct.rooms.beforeStep = function beforeStep() {
-    var i = 0;
+    ct.touch.updateGestures();
+var i = 0;
 while (i < ct.tween.tweens.length) {
     var tween = ct.tween.tweens[i];
     if (tween.obj.kill) {
@@ -3809,7 +3813,6 @@ while (i < ct.tween.tweens.length) {
     }
     i++;
 }
-ct.touch.updateGestures();
 
 };
 ct.rooms.afterStep = function afterStep() {
@@ -6099,6 +6102,7 @@ ct.types.templates["Icon"] = {
     texture: "1_1",
     onStep: function () {
         if(ct.room.pause) return;
+
 if(this.selected && !ct.touch.collide(this)){
     this.DrawLine(ct.touch.x,ct.touch.y);
     if(ct.room.activeIcon!=undefined ){
