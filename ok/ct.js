@@ -3822,13 +3822,13 @@ ct.rooms.beforeDraw = function beforeDraw() {
     
 };
 ct.rooms.afterDraw = function afterDraw() {
-    ct.mouse.xprev = ct.mouse.x;
+    ct.keyboard.clear();
+ct.mouse.xprev = ct.mouse.x;
 ct.mouse.yprev = ct.mouse.y;
 ct.mouse.xuiprev = ct.mouse.xui;
 ct.mouse.yuiprev = ct.mouse.yui;
 ct.mouse.pressed = ct.mouse.released = false;
 ct.inputs.registry['mouse.Wheel'] = 0;
-ct.keyboard.clear();
 for (const touch of ct.touch.events) {
     touch.xprev = touch.x;
     touch.yprev = touch.y;
@@ -3875,6 +3875,7 @@ if('level' in GetStorage()){
     GetLevel(i);
 }*/
 //showFullscrenAd();
+var startLevel = 0;
 var start = 0;
 this.ShowMainMenu=function(){
     this.gameUI=ct.rooms.append('mainmenu', {
@@ -3958,11 +3959,14 @@ this.NextLevel=function(){
         Post(GetStorage().level);
     }
     //this.StartGame();
-    var sec = Math.floor((Date.now() - start) / 1000);
-   
-    if(sec>=90){
+    //var sec = Math.floor((Date.now() - start) / 1000);
+   startLevel++;
+    //if(sec>=90){
+    if(startLevel>=4) {   
+        startLevel=0;
         showFullscrenAd();
-        start = Date.now();
+        //start = Date.now();
+        
     }
     
     /*if(this.levelsfinished>3){
